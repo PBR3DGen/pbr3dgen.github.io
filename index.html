@@ -3,10 +3,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-    <meta name="description" content="Paint3D: Paint Anything 3D with Lighting-Less Texture Diffusion Models">
-    <meta name="keywords" content="Paint3D, diffusion, 3D textures, 3D contents, generation">
+    <meta name="description" content="PBR3DGen: A VLM-guided mesh generation with high-quality PBR textures">
+    <meta name="keywords" content="PBR3DGen, diffusion, PBR textures, 3D contents, generation">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Paint3D</title>
+    <title>PBR3DGen</title>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
@@ -95,46 +95,11 @@
                     <h1 class="title is-1 publication-title">Paint3D: Paint Anything 3D with Lighting-less Texture
                         Diffusion Models</h1>
 
-                    <div class="is-size-5 publication-authors">
-                            <span class="author-block">
-                            <a href="https://scholar.google.com/citations?user=tgDc0fsAAAAJ">Xianfang Zeng</a><sup>1*</sup>,
-                            </span>
-                        <span class="author-block">
-                            <a href="https://chenxin.tech/">Xin Chen</a><sup>1*</sup>,
-                            </span>
-                        <span class="author-block">
-                            <a href="https://qzq2514.github.io/">Zhongqi Qi</a><sup>1*</sup>,
-                            </span>
-                        <span class="author-block">
-                            <a href="https://scholar.google.com/citations?user=A6K6bkoAAAAJ">Wen Liu</a><sup>1</sup>,
-                            </span>
-                        <span class="author-block">
-                            <a href="https://github.com/Maikouuu">Zibo Zhao</a><sup>1,3</sup>,
-                            </span>
-                        <span class="author-block">
-                            <a href="https://github.com/OpenTexture/Paint3D">Zhibin Wang</a><sup>1</sup>,
-                            </span>
-                        <span class="author-block">
-                            <a href="https://github.com/OpenTexture/Paint3D">BIN FU</a><sup>1</sup>,
-                            </span>
-                        <span class="author-block">
-                            <a href="https://april.zju.edu.cn/team/dr-yong-liu/">Yong Liu</a><sup>2</sup>,
-                            </span>
-                        <span class="author-block">
-                            <a href="https://www.skicyyu.org">Gang Yu</a><sup>1+</sup>
-                            </span>
-                    </div>
-
-                    <div class="is-size-5 publication-authors">
-                        <span class="author-block"><sup>1</sup>Tencent PCG,</span>
-                        <span class="author-block"><sup>2</sup>Zhejiang University,</span>
-                        <span class="author-block"><sup>3</sup>ShanghaiTech University</span>
-                    </div>
 
                     <div class="column has-text-centered">
                         <div class="publication-links">
                           <span class="link-block">
-                            <a href="https://arxiv.org/abs/2312.13913"
+                            <a href=""
                                class="external-link button is-normal is-rounded is-dark">
                               <span class="icon">
                                   <i class="ai ai-arxiv"></i>
@@ -144,7 +109,7 @@
                           </span>
                             <!-- Code Link. -->
                             <span class="link-block">
-                            <a href="https://github.com/OpenTexture/Paint3D"
+                            <a href=""
                                class="external-link button is-normal is-rounded is-dark">
                               <span class="icon">
                                   <i class="fab fa-github"></i>
@@ -154,7 +119,7 @@
                           </span>
                             <!-- Video Link. -->
                             <span class="link-block">
-                            <a href="https://youtu.be/T4GUOLvO1n0?si=X4dWHmPl9Go6PI-6"
+                            <a href=""
                                class="external-link button is-normal is-rounded is-dark">
                               <span class="icon">
                                   <i class="fab fa-youtube"></i>
@@ -166,13 +131,14 @@
                     </div>
 
                     <div class="is-size-5 publication-authors">
-                        <video id="teaser" autoplay muted loop playsinline height="100%">
-                            <source src="./static/videos/teaser2.mp4"
-                                    type="video/mp4">
-                        </video>
+<!--                         <video id="teaser" autoplay muted loop playsinline height="100%"> -->
+<!--                             <source src="./static/videos/teaser.mp4"
+                                    type="video/mp4"> -->
+<!--                         </video> -->
+                        <img src="./static/imgs/overview.jpg"/>
                         <h2 class="subtitle has-text-centered">
-                            Paint3D is capable of producing high-resolution, lighting-less, and diverse 2K UV texture
-                            maps for untextured 3D meshes conditioned on text or image inputs.
+                            We present PBR3DGen, a novel two-stage 3D assets generation framework with high-quality physically-based rendering materials. 
+                          All objects in the scene are generated from PBR3DGen.
                         </h2>
                     </div>
 
@@ -191,19 +157,13 @@
                 <h2 class="title is-3">Abstract</h2>
                 <div class="content has-text-justified">
                     <p>
-                        We present Paint3D, a novel coarse-to-fine generative framework that is capable of producing
-                        high-resolution, lighting-less, and diverse 2K UV texture maps for untextured 3D meshes
-                        conditioned on text or image inputs. The key challenge addressed is generating high-quality
-                        textures without embedded illumination information, which allows the textures to be
-                        re-lighted or re-edited within modern graphics pipelines. To achieve this, our method first
-                        leverages a pre-trained depth-aware 2D diffusion model to generate view-conditional images
-                        and perform multi-view texture fusion, producing an initial coarse texture map. However, as
-                        2D models cannot fully represent 3D shapes and disable lighting effects, the coarse texture
-                        map exhibits incomplete areas and illumination artifacts. To resolve this, we train separate
-                        UV Inpainting and UVHD diffusion models specialized for the shape-aware refinement of
-                        incomplete areas and the removal of illumination artifacts. Through this coarse-to-fine
-                        process, Paint3D can produce high-quality 2K UV textures that maintain semantic consistency
-                        while being lighting-less, significantly advancing the state-of-the-art in texturing 3D objects.
+                      we present PBR3DGen, a two-stage PBR material generation method that integrates the novel multi-view PBR 
+                      material estimation model and a 3D PBR mesh reconstruction model. Specifically, PBR3DGen leverages vision 
+                      language models (VLM) to guide multi-view diffusion, precisely capturing the spatial distribution and inherent
+                      attributes of reflective-metalness material. Additionally, we incorporate view-dependent illumination-aware conditions
+                      as pixel-aware priors to enhance spatially varying material properties. Furthermore, our reconstruction model 
+                      reconstructs high-quality mesh with PBR material. Experimental results demonstrate that PBR3DGen significantly outperforms existing methods, 
+                      achieving new state-of-the-art results for PBR estimation and mesh generation.
                     </p>
                 </div>
                 <img src="./static/imgs/overview.jpg"/>
@@ -231,7 +191,7 @@
                            preload
                            playsinline
                            width="100%">
-                        <source src="./static/videos/video_demo_full_c.mp4"
+                        <source src="./static/videos/teaser.mp4"
                                 type="video/mp4">
                     </video>
                 </div>
@@ -634,8 +594,8 @@
     // ];
 
     const modelPaths2 = [
-        "f1722ab650ad4d8dbe6fc4bf44e33d38",
-        "99325395edd44438b36ad04cb308a3a0",
+        "4c73f3695ded3cb762e3e940b1f6d6bd",
+        "8c7b80ff901847ca82fb0d9d9735a9f4",
         "511aa069fb8f4e759de014e569b22a05",
         "0e06763d63f44733b99c06ae18dcb13d",
         "1bf163160fa34a2bac8c9c6218675478",
@@ -666,31 +626,17 @@
 <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
         <h2 class="title">BibTeX</h2>
-        <pre><code>@misc{zeng2023paint3d,
-      title={Paint3D: Paint Anything 3D with Lighting-Less Texture Diffusion Models},
-      author={Xianfang Zeng and Xin Chen and Zhongqi Qi and Wen Liu and Zibo Zhao and Zhibin Wang and BIN FU and Yong Liu and Gang Yu},
-      year={2023},
-      eprint={2312.13913},
+<!--         <pre><code>@misc{,
+      title={},
+      author={},
+      year={=},
+      eprint={},
       archivePrefix={arXiv},
       primaryClass={cs.CV}
-}</code></pre>
+}</code></pre> -->
     </div>
 </section>
 
-
-<footer class="footer">
-        <div class="container">
-            <div class="columns is-centered">
-                <div class="column is-8">
-                    <div class="content">
-                        <p style="text-align:center">
-                            Source code mainly borrowed from <a href="https://cvmi-lab.github.io/Point-UV-Diffusion/">Point-UV</a> and <a href="https://mv-dream.github.io/">MVDream</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 </body>
 </html>
