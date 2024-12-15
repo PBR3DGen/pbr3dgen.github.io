@@ -1,0 +1,696 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <meta name="description" content="Paint3D: Paint Anything 3D with Lighting-Less Texture Diffusion Models">
+    <meta name="keywords" content="Paint3D, diffusion, 3D textures, 3D contents, generation">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paint3D</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+
+  <style>
+    .render_wrapper {
+        position: relative;
+        height: 350px;
+    }
+    .render_div {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    /*.external-link {*/
+    /*color: #ffffff !important; */
+    /*background-color: rgb(104, 161, 135) !important;*/
+    /*border-radius: 10px !important;*/
+    /*font-size: 12px !important;*/
+    /*}*/
+
+    /*.external-link .icon {*/
+    /*font-size: 20px !important;*/
+    /*}*/
+
+    /*.external-link:hover {*/
+    /*background-color: #555555 !important;*/
+    /*}*/
+
+    /*.conference {*/
+    /*font-family: 'Google Sans', sans-serif;*/
+    /*color: hsl(240, 2%, 10%) !important;*/
+    /*font-family: 'Merriweather', serif;*/
+    /*font-weight: 500;*/
+    /*}*/
+
+    .results-carousel textbox {
+    font-size: 7px;
+    font-family: 'Google Sans', cursive, sans-serif;
+    color: hsl(321, 56%, 56%) !important;
+    }
+    .dialog-box {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(96, 85, 85, 0.494);
+        padding: 10px;
+        border-radius: 15px;
+        z-index: 1000;
+        font-size: 14px;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        color: hsl(322, 33%, 22%) !important;
+        font-weight: bold;
+    }
+  </style>
+
+  <!-- Import the component -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <!-- scripts and css for MVDream -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./static/css/styles.css">
+  <script src="./static/js/video_comparison.js"></script>
+
+</head>
+<body>
+
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">Paint3D: Paint Anything 3D with Lighting-less Texture
+                        Diffusion Models</h1>
+
+                    <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                            <a href="https://scholar.google.com/citations?user=tgDc0fsAAAAJ">Xianfang Zeng</a><sup>1*</sup>,
+                            </span>
+                        <span class="author-block">
+                            <a href="https://chenxin.tech/">Xin Chen</a><sup>1*</sup>,
+                            </span>
+                        <span class="author-block">
+                            <a href="https://qzq2514.github.io/">Zhongqi Qi</a><sup>1*</sup>,
+                            </span>
+                        <span class="author-block">
+                            <a href="https://scholar.google.com/citations?user=A6K6bkoAAAAJ">Wen Liu</a><sup>1</sup>,
+                            </span>
+                        <span class="author-block">
+                            <a href="https://github.com/Maikouuu">Zibo Zhao</a><sup>1,3</sup>,
+                            </span>
+                        <span class="author-block">
+                            <a href="https://github.com/OpenTexture/Paint3D">Zhibin Wang</a><sup>1</sup>,
+                            </span>
+                        <span class="author-block">
+                            <a href="https://github.com/OpenTexture/Paint3D">BIN FU</a><sup>1</sup>,
+                            </span>
+                        <span class="author-block">
+                            <a href="https://april.zju.edu.cn/team/dr-yong-liu/">Yong Liu</a><sup>2</sup>,
+                            </span>
+                        <span class="author-block">
+                            <a href="https://www.skicyyu.org">Gang Yu</a><sup>1+</sup>
+                            </span>
+                    </div>
+
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block"><sup>1</sup>Tencent PCG,</span>
+                        <span class="author-block"><sup>2</sup>Zhejiang University,</span>
+                        <span class="author-block"><sup>3</sup>ShanghaiTech University</span>
+                    </div>
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                          <span class="link-block">
+                            <a href="https://arxiv.org/abs/2312.13913"
+                               class="external-link button is-normal is-rounded is-dark">
+                              <span class="icon">
+                                  <i class="ai ai-arxiv"></i>
+                              </span>
+                              <span>arXiv</span>
+                            </a>
+                          </span>
+                            <!-- Code Link. -->
+                            <span class="link-block">
+                            <a href="https://github.com/OpenTexture/Paint3D"
+                               class="external-link button is-normal is-rounded is-dark">
+                              <span class="icon">
+                                  <i class="fab fa-github"></i>
+                              </span>
+                              <span>Code</span>
+                              </a>
+                          </span>
+                            <!-- Video Link. -->
+                            <span class="link-block">
+                            <a href="https://youtu.be/T4GUOLvO1n0?si=X4dWHmPl9Go6PI-6"
+                               class="external-link button is-normal is-rounded is-dark">
+                              <span class="icon">
+                                  <i class="fab fa-youtube"></i>
+                              </span>
+                              <span>Video</span>
+                            </a>
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="is-size-5 publication-authors">
+                        <video id="teaser" autoplay muted loop playsinline height="100%">
+                            <source src="./static/videos/teaser2.mp4"
+                                    type="video/mp4">
+                        </video>
+                        <h2 class="subtitle has-text-centered">
+                            Paint3D is capable of producing high-resolution, lighting-less, and diverse 2K UV texture
+                            maps for untextured 3D meshes conditioned on text or image inputs.
+                        </h2>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">Abstract</h2>
+                <div class="content has-text-justified">
+                    <p>
+                        We present Paint3D, a novel coarse-to-fine generative framework that is capable of producing
+                        high-resolution, lighting-less, and diverse 2K UV texture maps for untextured 3D meshes
+                        conditioned on text or image inputs. The key challenge addressed is generating high-quality
+                        textures without embedded illumination information, which allows the textures to be
+                        re-lighted or re-edited within modern graphics pipelines. To achieve this, our method first
+                        leverages a pre-trained depth-aware 2D diffusion model to generate view-conditional images
+                        and perform multi-view texture fusion, producing an initial coarse texture map. However, as
+                        2D models cannot fully represent 3D shapes and disable lighting effects, the coarse texture
+                        map exhibits incomplete areas and illumination artifacts. To resolve this, we train separate
+                        UV Inpainting and UVHD diffusion models specialized for the shape-aware refinement of
+                        incomplete areas and the removal of illumination artifacts. Through this coarse-to-fine
+                        process, Paint3D can produce high-quality 2K UV textures that maintain semantic consistency
+                        while being lighting-less, significantly advancing the state-of-the-art in texturing 3D objects.
+                    </p>
+                </div>
+                <img src="./static/imgs/overview.jpg"/>
+            </div>
+        </div>
+        <!--/ Abstract. -->
+
+        <!-- Paper video. -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">Video</h2>
+                <!--                    <div class="publication-video">-->
+                <!--                        <iframe width="560" height="315"-->
+                <!--                                src="https://www.youtube.com/embed/T4GUOLvO1n0?si=l-PLk4OMIPaFpwXF"-->
+                <!--                                title="YouTube video player" frameborder="0"-->
+                <!--                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"-->
+                <!--                                allowfullscreen></iframe>-->
+                <!--                    </div>-->
+                <div class="content has-text-centered">
+                    <video id="replay-video1"
+                           autoplay
+                           loop
+                           controls
+                           muted
+                           preload
+                           playsinline
+                           width="100%">
+                        <source src="./static/videos/video_demo_full_c.mp4"
+                                type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+        <!--/ Paper video. -->
+    </div>
+</section>
+
+<!---------------------------------------------Functions Start-------------------------------------------------->
+<script>
+    function createRadioButtons_image(name) {
+        const createRadioButton = (value, label, checked = false) => {
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = name;
+            input.value = value;
+            input.checked = checked;
+            input.style.opacity = "0";
+            input.id = value + name; 
+            input.style.position = 'absolute'; 
+
+            const labelElement = document.createElement('label'); 
+            labelElement.htmlFor = input.id; 
+
+            const span = document.createElement('span');
+            span.innerHTML = label;
+
+            labelElement.appendChild(input);
+            labelElement.appendChild(span);
+
+            const div = document.createElement('div');
+            div.appendChild(labelElement);
+
+            return div;
+        };
+
+        return [
+            createRadioButton('texture', 'texture', true), // Default to texture
+            createRadioButton('mesh', 'mesh'),
+            createRadioButton('image', 'Show image')
+        ];
+    }
+
+    function createRadioButtons_uncondition(name) {
+        const createRadioButton = (value, label, checked = false) => {
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = name;
+            input.value = value;
+            input.checked = checked;
+            input.style.opacity = "0";
+            input.id = value + name; 
+            input.style.position = 'absolute'; 
+
+            const labelElement = document.createElement('label'); 
+            labelElement.htmlFor = input.id; 
+
+            const span = document.createElement('span');
+            span.innerHTML = label;
+
+            labelElement.appendChild(input);
+            labelElement.appendChild(span);
+
+            const div = document.createElement('div');
+            div.appendChild(labelElement);
+
+            return div;
+        };
+
+        return [
+            createRadioButton('texture', 'texture', true), // Default to texture
+            createRadioButton('mesh', 'mesh')
+        ];
+    }
+
+    function createImageElement(src) {
+        const imageElement = document.createElement('img');
+        imageElement.src = src;
+        imageElement.style.display = "none"; 
+        imageElement.style.width = '100%';
+        imageElement.style.height = '100%';
+        return imageElement;
+    }
+
+    function createModelView_image(modelPath, index) {
+        const modelDiv = document.createElement('div');
+        modelDiv.className = 'item render_wrapper';
+        
+        // Create and append Model Viewer
+        const modelViewerDiv = document.createElement('div');
+        modelViewerDiv.className = 'render_wrapper';
+        const modelViewer = document.createElement('model-viewer');
+        // ... set modelViewer properties ...
+        modelViewer.src = "./image_models/" + modelPath + ".glb";
+        modelViewer.alt = 'Description of model';
+        modelViewer.setAttribute('auto-rotate', '');
+        modelViewer.setAttribute('camera-controls', '');
+        modelViewer.style.width = '100%';
+        modelViewer.style.height = '100%';
+        modelViewer.style.backgroundColor = 'transparent';
+        modelViewer.setAttribute('camera-orbit', '50deg 75deg 3m');
+
+        const imageElement = createImageElement("./images/" + modelPath + ".png");
+        const radioButtons = createRadioButtons_image('display-option-' + index);
+        const updateColors = () => {
+            radioButtons.forEach(rb => {
+                rb.querySelector('span').style.color = rb.querySelector('input').checked ? 'green' : 'blue';
+                rb.querySelector('span').style.opacity = rb.querySelector('input').checked ? 1 : 0.2;
+            });
+        };
+
+        
+        radioButtons.forEach(radioButton => {
+            radioButton.querySelector('input').addEventListener('change', updateColors);
+        });
+        updateColors();
+
+        let originalTexture = null;
+        modelViewer.addEventListener('load', function() {
+            const material = modelViewer.model.materials[0];
+            originalTexture = material.pbrMetallicRoughness.baseColorTexture.texture;
+        });
+
+        radioButtons[0].querySelector('input').addEventListener('change', function() {
+            const material = modelViewer.model.materials[0];
+            const texture = material.pbrMetallicRoughness.baseColorTexture.texture;
+            if (this.checked) {
+                const material = modelViewer.model.materials[0];
+                material.pbrMetallicRoughness.baseColorTexture.setTexture(originalTexture);
+                modelViewer.style.display = "block";
+                imageElement.style.display = "none";
+            }
+        });
+        radioButtons[1].querySelector('input').addEventListener('change', function() {
+            const material = modelViewer.model.materials[0];
+            const texture = material.pbrMetallicRoughness.baseColorTexture.texture;
+            if (this.checked) {
+                const material = modelViewer.model.materials[0];
+                material.pbrMetallicRoughness.baseColorTexture.setTexture(null);
+                modelViewer.style.display = "block";
+                imageElement.style.display = "none";
+
+            }
+        });
+        radioButtons[2].querySelector('input').addEventListener('change', function() {
+            if (this.checked) {
+                modelViewer.style.display = "none";
+                imageElement.style.display = "block";
+            }
+        });
+
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'controls';
+        radioButtons.forEach(radioButton => controlsDiv.appendChild(radioButton));
+        modelDiv.appendChild(controlsDiv);
+
+        modelDiv.appendChild(imageElement);
+        modelDiv.appendChild(modelViewer); // Append model viewer first
+        modelDiv.appendChild(modelViewerDiv);
+
+        return modelDiv;
+    }
+
+    function createModelView_uncondition(modelPath, index) {
+        const modelDiv = document.createElement('div');
+        modelDiv.className = 'item render_wrapper';
+        
+        // Create and append Model Viewer
+        const modelViewerDiv = document.createElement('div');
+        modelViewerDiv.className = 'render_wrapper';
+        const modelViewer = document.createElement('model-viewer');
+        // ... set modelViewer properties ...
+        modelViewer.src = "./models/" + modelPath + ".glb";
+        modelViewer.alt = 'Description of model';
+        modelViewer.setAttribute('auto-rotate', '');
+        modelViewer.setAttribute('camera-controls', '');
+        modelViewer.style.width = '100%';
+        modelViewer.style.height = '100%';
+        modelViewer.style.backgroundColor = 'transparent';
+        modelViewer.setAttribute('camera-orbit', '50deg 75deg 3m');
+
+
+        const radioButtons = createRadioButtons_uncondition('display-option-' + index);
+        const updateColors = () => {
+            radioButtons.forEach(rb => {
+                rb.querySelector('span').style.color = rb.querySelector('input').checked ? 'green' : 'blue';
+                rb.querySelector('span').style.opacity = rb.querySelector('input').checked ? 1 : 0.2;
+            });
+        };
+
+        
+        radioButtons.forEach(radioButton => {
+            radioButton.querySelector('input').addEventListener('change', updateColors);
+        });
+        updateColors();
+
+        let originalTexture = null;
+        modelViewer.addEventListener('load', function() {
+            const material = modelViewer.model.materials[0];
+            originalTexture = material.pbrMetallicRoughness.baseColorTexture.texture;
+        });
+
+        radioButtons[0].querySelector('input').addEventListener('change', function() {
+            const material = modelViewer.model.materials[0];
+            const texture = material.pbrMetallicRoughness.baseColorTexture.texture;
+            if (this.checked) {
+                const material = modelViewer.model.materials[0];
+                material.pbrMetallicRoughness.baseColorTexture.setTexture(originalTexture);
+                modelViewer.style.display = "block";
+            }
+        });
+        radioButtons[1].querySelector('input').addEventListener('change', function() {
+            const material = modelViewer.model.materials[0];
+            const texture = material.pbrMetallicRoughness.baseColorTexture.texture;
+            if (this.checked) {
+                const material = modelViewer.model.materials[0];
+                material.pbrMetallicRoughness.baseColorTexture.setTexture(null);
+                modelViewer.style.display = "block";
+
+            }
+        });
+
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'controls';
+        radioButtons.forEach(radioButton => controlsDiv.appendChild(radioButton));
+        modelDiv.appendChild(controlsDiv);
+
+        modelDiv.appendChild(modelViewer); // Append model viewer first
+        modelDiv.appendChild(modelViewerDiv);
+
+        return modelDiv;
+    }
+
+    function createModelView_text(modelPath, index) {
+        const modelDiv = document.createElement('div');
+        modelDiv.className = 'item render_wrapper';
+        
+        // Create and append Model Viewer
+        const modelViewerDiv = document.createElement('div');
+        modelViewerDiv.className = 'render_wrapper';
+        const modelViewer = document.createElement('model-viewer');
+        // ... set modelViewer properties ...
+        modelViewer.src = "./text_models/" + modelPath + ".glb";
+        modelViewer.alt = 'Description of model';
+        modelViewer.setAttribute('auto-rotate', '');
+        modelViewer.setAttribute('camera-controls', '');
+        modelViewer.style.width = '100%';
+        modelViewer.style.height = '100%';
+        modelViewer.style.backgroundColor = 'transparent';
+        modelViewer.setAttribute('camera-orbit', '50deg 75deg 3m');
+
+        const radioButtons = createRadioButtons_uncondition('display-option-' + index);
+        const updateColors = () => {
+            radioButtons.forEach(rb => {
+                rb.querySelector('span').style.color = rb.querySelector('input').checked ? 'green' : 'blue';
+                rb.querySelector('span').style.opacity = rb.querySelector('input').checked ? 1 : 0.2;
+            });
+        };
+
+        
+        radioButtons.forEach(radioButton => {
+            radioButton.querySelector('input').addEventListener('change', updateColors);
+        });
+        updateColors();
+
+        let originalTexture = null;
+        modelViewer.addEventListener('load', function() {
+            const material = modelViewer.model.materials[0];
+            originalTexture = material.pbrMetallicRoughness.baseColorTexture.texture;
+        });
+
+        radioButtons[0].querySelector('input').addEventListener('change', function() {
+            const material = modelViewer.model.materials[0];
+            const texture = material.pbrMetallicRoughness.baseColorTexture.texture;
+            if (this.checked) {
+                const material = modelViewer.model.materials[0];
+                material.pbrMetallicRoughness.baseColorTexture.setTexture(originalTexture);
+                modelViewer.style.display = "block";
+            }
+        });
+        radioButtons[1].querySelector('input').addEventListener('change', function() {
+            const material = modelViewer.model.materials[0];
+            const texture = material.pbrMetallicRoughness.baseColorTexture.texture;
+            if (this.checked) {
+                const material = modelViewer.model.materials[0];
+                material.pbrMetallicRoughness.baseColorTexture.setTexture(null);
+                modelViewer.style.display = "block";
+
+            }
+        });
+
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'controls';
+        radioButtons.forEach(radioButton => controlsDiv.appendChild(radioButton));
+
+        const dialogBox = document.createElement('div');
+        dialogBox.className = 'dialog-box';
+        dialogBox.style.position = 'absolute'; 
+        dialogBox.style.display = 'none'; 
+        dialogBox.style.top = '30px';  
+        dialogBox.style.right = '0';
+        
+        const descriptionCheckbox = document.createElement('input');
+        descriptionCheckbox.type = 'checkbox';
+        descriptionCheckbox.id = 'descriptionCheckbox-' + index;
+        descriptionCheckbox.style.opacity = "0";
+
+        const descriptionLabel = document.createElement('label'); 
+        descriptionLabel.htmlFor = descriptionCheckbox.id; 
+
+        const span = document.createElement('span');
+        span.innerHTML = 'Show Description';
+        span.style.position = 'relative';
+        span.style.top = '-7px';
+        span.style.marginLeft='10px';
+        span.style.whiteSpace = 'nowrap';
+
+        descriptionLabel.appendChild(span);
+
+
+        const descriptionText = "this is a test this is a test this is a test this is a test this is a test"; // 
+
+        descriptionCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                // dialogBox.innerHTML = descriptionText;
+                // dialogBox.style.display = 'block';
+                
+                fetch("./text/" + modelPath + ".txt")
+                    .then(response => response.text())
+                    .then(text => {
+                        dialogBox.innerHTML = text;
+                        dialogBox.style.display = 'block';
+                    })
+                    .catch(error => console.error(error));
+            } else {
+                dialogBox.style.display = 'none';
+            }
+        });
+
+        const checkboxWrapper = document.createElement('div');
+        checkboxWrapper.style.position = 'relative'; 
+        checkboxWrapper.appendChild(descriptionCheckbox);
+        checkboxWrapper.appendChild(dialogBox);
+        checkboxWrapper.appendChild(descriptionLabel);
+        controlsDiv.appendChild(checkboxWrapper); 
+
+        modelDiv.appendChild(controlsDiv);
+
+        modelDiv.appendChild(modelViewer); // Append model viewer first
+        modelDiv.appendChild(modelViewerDiv);
+
+        return modelDiv;
+    }
+
+    function createCarousel(modelPaths, resultsCarouselId, createModelViewFunction) {
+        const resultsCarousel = document.getElementById(resultsCarouselId);
+
+        modelPaths.forEach((modelPath, index) => {
+        const uniqueId = resultsCarouselId + '-model-' + index;
+        const modelDiv = createModelViewFunction(modelPath, uniqueId);
+        resultsCarousel.appendChild(modelDiv);
+        });
+    }
+
+
+</script>
+<!---------------------------------------------Functions Over-------------------------------------------------->
+
+<!--<section class="hero">-->
+<!--    <div class="hero-body">-->
+<!--        <div class="container is-max-desktop">-->
+<!--            <h1 class="title is-4">Unconditional texture generation</h1>-->
+<!--            <div id="results-carousel1" class="carousel results-carousel"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <h1 class="title is-4">Image-condition texture generation</h1>
+            <div id="results-carousel2" class="carousel results-carousel"></div>
+        </div>
+    </div>
+</section>
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <h1 class="title is-4">Text-condition texture generation</h1>
+            <div id="results-carousel3" class="carousel results-carousel"></div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // const modelPaths1 = [
+    // "a770cb6ad4a97df84abd45348d17aaf8",
+    // ];
+
+    const modelPaths2 = [
+        "f1722ab650ad4d8dbe6fc4bf44e33d38",
+        "99325395edd44438b36ad04cb308a3a0",
+        "511aa069fb8f4e759de014e569b22a05",
+        "0e06763d63f44733b99c06ae18dcb13d",
+        "1bf163160fa34a2bac8c9c6218675478",
+        "897ce33a65d04bb69eb3d87d0742464f",
+        "bab2d06e16064619ac4f6ccf976f0d0a",
+        "fe9bb26f88ce4efd9b0855ea383f3e78",
+    ];
+
+    const modelPaths3 = [
+        "Suzanne_monkey",
+        "Utah_teapot",
+        "be48f3f906ed431b98b1bf03ab7aadd6",
+        "0000c32fde7f45efb8d14e8ba737d50c",
+        "7abe9a2b33d6443d83b5d54e467aaac5",
+        "8cd40f962f2c440c9caf1db1a505357f",
+        "ae0831702eac462a9969ff4f8bd57710",
+        "nascar",
+    ];
+
+
+    // createCarousel(modelPaths1, 'results-carousel1', createModelView_uncondition);
+    createCarousel(modelPaths2, 'results-carousel2', createModelView_image);
+    createCarousel(modelPaths3, 'results-carousel3', createModelView_text);
+
+</script>
+
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@misc{zeng2023paint3d,
+      title={Paint3D: Paint Anything 3D with Lighting-Less Texture Diffusion Models},
+      author={Xianfang Zeng and Xin Chen and Zhongqi Qi and Wen Liu and Zibo Zhao and Zhibin Wang and BIN FU and Yong Liu and Gang Yu},
+      year={2023},
+      eprint={2312.13913},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}</code></pre>
+    </div>
+</section>
+
+
+<footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content">
+                        <p style="text-align:center">
+                            Source code mainly borrowed from <a href="https://cvmi-lab.github.io/Point-UV-Diffusion/">Point-UV</a> and <a href="https://mv-dream.github.io/">MVDream</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
