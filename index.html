@@ -186,7 +186,12 @@
       <div class="hero-body">
           <div class="container">
               <div id="results-carousel-0" class="carousel results-carousel">
-                  <div class="item item-steve">
+                <div class="item item-steve">
+                    <div class="render_wrapper">
+                        <div id="mesh_tt3d_0" class="render_div"></div>
+                    </div>
+                </div> 
+                <div class="item item-steve">
                       <div class="render_wrapper">
                           <div id="mesh_tt3d_1" class="render_div"></div>
                       </div>
@@ -328,6 +333,10 @@
       import { RGBELoader } from './js/RGBELoader.js';
       import { OrbitControls } from './js/OrbitControls.js'
       let div_to_scene = {
+          "mesh_tt3d_0": {
+              "geo": null,
+              "color": null,
+          },
           "mesh_tt3d_1": {
               "geo": null,
               "color": null,
@@ -355,7 +364,7 @@
           "mesh_tt3d_7": {
               "geo": null,
               "color": null,
-          }
+          },
           "mesh_tt3d_8": {
               "geo": null,
               "color": null,
@@ -387,7 +396,7 @@
           "mesh_tt3d_15": {
               "geo": null,
               "color": null,
-          }
+          },
           "mesh_tt3d_16": {
               "geo": null,
               "color": null,
@@ -810,7 +819,8 @@
           // slider.addEventListener("mouseout", reset_orbit_controls);
   
           if (!isMobile()) {
-              setup_render_divs("mesh_tt3d_1", './static/models/goldentoilet.glb')
+              setup_render_divs("mesh_tt3d_0", './static/models/goldentoilet.glb')              
+              setup_render_divs("mesh_tt3d_1", './static/models/1.glb')
               setup_render_divs("mesh_tt3d_2", './static/models/2.glb')
               setup_render_divs("mesh_tt3d_3", './static/models/3.glb')
               setup_render_divs("mesh_tt3d_4", './static/models/4.glb')
