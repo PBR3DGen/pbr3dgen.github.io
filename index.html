@@ -577,7 +577,7 @@
               let pmremGenerator = new THREE.PMREMGenerator(renderer);
               pmremGenerator.compileEquirectangularShader();
               
-              new RGBELoader().setDataType(THREE.FloatType).load('./envs/goegap_road_2k.hdr', function (texture) {
+              new RGBELoader().setDataType(THREE.FloatType).load('./envs/metro_noord_2k.hdr', function (texture) {
                   const envMap = pmremGenerator.fromEquirectangular(texture).texture;
                   div_to_scene[div_id]["color"].environment = envMap;
                   div_to_scene[div_id]["geo"].environment = envMap;
