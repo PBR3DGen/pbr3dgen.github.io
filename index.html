@@ -342,14 +342,20 @@
           // let camera_init_position = new THREE.Vector3( 0.2, 0.35, 1.2 );
           let camera = new THREE.PerspectiveCamera( 35, width / height, 0.1, 50 );
           let camera_init_position = new THREE.Vector3( 1.0, 0.35, 1.2 );
-          if (div_name.includes("tt3d_3") || div_name.includes("tt3d_4") || div_name.includes("tt3d_5") || div_name.includes("tt3d_6") || div_name.includes("tt3d_7") ){
-              camera_init_position = camera_init_position.multiplyScalar(1.5 * 7.5)
-          }
-          else if (div_name.includes("env")) {
+          // if (div_name.includes("tt3d_3") || div_name.includes("tt3d_4") || div_name.includes("tt3d_5") || div_name.includes("tt3d_6") || div_name.includes("tt3d_7") ){
+          //     camera_init_position = camera_init_position.multiplyScalar(1.5 * 7.5)
+          // }
+          // else if (div_name.includes("env")) {
+          //     camera_init_position = camera_init_position.multiplyScalar(1.5 * 6.75)
+          // }
+          // else {
+          //     camera_init_position = camera_init_position.multiplyScalar(1.5 * 6)
+          // }
+          if (div_name.includes("env")) {
               camera_init_position = camera_init_position.multiplyScalar(1.5 * 6.75)
           }
           else {
-              camera_init_position = camera_init_position.multiplyScalar(1.5 * 6)
+              camera_init_position = camera_init_position.multiplyScalar(1.5 * 7.5)
           }
           camera.position.set(camera_init_position.x, camera_init_position.y, camera_init_position.z);
           return camera;
@@ -432,9 +438,14 @@
                   
                   loaded_mesh.traverse(function (child) {
                       if (child.isMesh) {
+                          // const geometry = child.geometry;
+                          // const material = new THREE.MeshStandardMaterial( { color: 0x444444, flatShading: true } )
+                          // const mesh = new THREE.Mesh(geometry, material);
+                          // mesh.rotateOnAxis(axis, angle);
+                          // div_to_scene[div_id]["geo"].add(mesh);
                           const geometry = child.geometry;
-                          const material = new THREE.MeshStandardMaterial( { color: 0x444444, flatShading: true } )
-                          const mesh = new THREE.Mesh(geometry, material);
+                          // const material = new THREE.MeshStandardMaterial( { color: 0x444444, flatShading: true } )
+                          const mesh = new THREE.Mesh(geometry);
                           mesh.rotateOnAxis(axis, angle);
                           div_to_scene[div_id]["geo"].add(mesh);
                       }
@@ -449,9 +460,9 @@
   
               // lights
   
-              // div_to_scene[div_id]["geo"].add( new THREE.HemisphereLight( 0x333333, 0x222222 ) );
-              // addShadowedLight(div_to_scene[div_id]["geo"], 1, 1, 1, 0xffffff, 1.35 );
-              // addShadowedLight(div_to_scene[div_id]["geo"],  0.5, 1, - 1, 0xffffff, 1 );
+              div_to_scene[div_id]["geo"].add( new THREE.HemisphereLight( 0x333333, 0x222222 ) );
+              addShadowedLight(div_to_scene[div_id]["geo"], 1, 1, 1, 0xffffff, 1.35 );
+              addShadowedLight(div_to_scene[div_id]["geo"],  0.5, 1, - 1, 0xffffff, 1 );
   
               // renderer
   
