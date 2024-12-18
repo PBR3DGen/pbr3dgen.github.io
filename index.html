@@ -350,16 +350,16 @@
           let height = container.parentElement.clientHeight;
           console.log(width, height)
           let camera = new THREE.PerspectiveCamera( 60, width / height, 0.1, 30 );
-          let camera_init_position = new THREE.Vector3( 1.0, 0.35, 1.2 );
-          if (div_name.includes("tt3d_3") || div_name.includes("tt3d_4") || div_name.includes("tt3d_5") || div_name.includes("tt3d_6") || div_name.includes("tt3d_7") ){
-              camera_init_position = camera_init_position.multiplyScalar(1.5 * 7.5)
-          }
-          else if (div_name.includes("env")) {
-              camera_init_position = camera_init_position.multiplyScalar(1.5 * 6.75)
-          }
-          else {
-              camera_init_position = camera_init_position.multiplyScalar(1.5 * 6)
-          }
+          let camera_init_position = new THREE.Vector3( 0.2, 0.35, 0.2 );
+          // if (div_name.includes("tt3d_3") || div_name.includes("tt3d_4") || div_name.includes("tt3d_5") || div_name.includes("tt3d_6") || div_name.includes("tt3d_7") ){
+          //     camera_init_position = camera_init_position.multiplyScalar(1.5 * 7.5)
+          // }
+          // else if (div_name.includes("env")) {
+          //     camera_init_position = camera_init_position.multiplyScalar(1.5 * 6.75)
+          // }
+          // else {
+          //     camera_init_position = camera_init_position.multiplyScalar(1.5 * 6)
+          // }
           camera.position.set(camera_init_position.x, camera_init_position.y, camera_init_position.z);
           return camera;
       }
