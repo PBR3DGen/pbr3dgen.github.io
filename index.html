@@ -49,6 +49,44 @@
       .nested-columns {
           margin-bottom: 0 !important;
       }
+
+    .hero {
+      width: 100%;
+      overflow: hidden;
+      background-color: #fff;
+    }
+    .carousel {
+      display: flex;
+      animation: scroll-left 15s linear infinite;
+    }
+    .item {
+      flex: 0 0 100%; 
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .media-video, .media-image {
+      width: 50%; 
+      height: auto;
+    }
+
+    .media-video {
+      object-fit: cover; 
+    }
+
+    .media-image {
+      object-fit: contain;
+    }
+    
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -185,7 +223,7 @@
     </div>
   </section>
 
-  <section class="hero is-light is-small">
+<!--   <section class="hero is-light is-small">
     <div class="hero-body">
       <div class="container">
         <div id="results-carousel" class="carousel results-carousel">
@@ -252,8 +290,77 @@
         </div>
       </div>
     </div>
+  </section> -->
+
+  <section class="hero">
+    <div id="results-carousel" class="carousel">
+      <!-- 项目1 -->
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/1.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/1.png" alt="Image 1">
+      </div>
+  
+      <!-- 项目2 -->
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/2.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/2.png" alt="Image 2">
+      </div>
+  
+      <!-- 项目3 -->
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/3.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/3.png" alt="Image 3">
+      </div>
+  
+      <!-- 项目4 -->
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/4.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/4.png" alt="Image 4">
+      </div>
+  
+      <!-- 项目5 -->
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/5.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/5.png" alt="Image 5">
+      </div>
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/6.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/6.png" alt="Image 5">
+      </div>
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/7.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/7.png" alt="Image 5">
+      </div>
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/8.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/8.png" alt="Image 5">
+      </div>
+      <div class="item">
+        <video class="media-video" autoplay muted loop playsinline>
+          <source src="./static/image2mesh/9.mp4" type="video/mp4">
+        </video>
+        <img class="media-image" src="./static/image2mesh/9.png" alt="Image 5">
+      </div>
+    </div>
   </section>
 
+  
   <section class="section">
     <div class="container is-max-desktop">
         <div class="columns is-centered" id="results-relight" style="margin-top: -50px">
