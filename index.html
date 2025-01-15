@@ -82,9 +82,14 @@
       object-fit: cover; 
     }
 
-    .media-image {
-      object-fit: contain;
-    }
+  /* 设置图片样式 */
+  .media-image {
+    width: 50%; /* 图片占一半宽度 */
+    height: auto; /* 保持图片比例 */
+    background-color: #f0f0f0; /* 设置浅灰色背景 */
+    padding: 10px; /* 给图片内容增加一些内边距，使其与背景有间距 */
+    box-sizing: border-box; /* 确保 padding 不影响图片宽度 */
+  }
     
 /*     @keyframes scroll-left {
       0% {
@@ -235,18 +240,21 @@
       <div class="container">
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item item-steve">
+            <img class="media-image" src="./static/image2mesh/1.png" alt="Image 1">
             <video poster="" id="steve" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/1.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-chair-tp">
+            <img class="media-image" src="./static/image2mesh/2.png" alt="Image 2">
             <video poster="" id="chair-tp" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/2.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-shiba">
+            <img class="media-image" src="./static/image2mesh/3.png" alt="Image 3">
             <video poster="" id="shiba" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/3.mp4"
                       type="video/mp4">
@@ -259,36 +267,42 @@
             </video>
           </div>
           <div class="item item-blueshirt">
+            <img class="media-image" src="./static/image2mesh/4.png" alt="Image 4">
             <video poster="" id="blueshirt" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/5.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-mask">
+            <img class="media-image" src="./static/image2mesh/5.png" alt="Image 6">
             <video poster="" id="mask" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/6.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-coffee">
+            <img class="media-image" src="./static/image2mesh/7.png" alt="Image 7">
             <video poster="" id="coffee" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/7.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-toby">
+            <img class="media-image" src="./static/image2mesh/8.png" alt="Image 8">
             <video poster="" id="toby" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/8.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-toby">
+            <img class="media-image" src="./static/image2mesh/9.png" alt="Image 9">
             <video poster="" id="toby" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/9.mp4"
                       type="video/mp4">
             </video>
           </div>    
           <div class="item item-toby">
+            <img class="media-image" src="./static/image2mesh/10.png" alt="Image 10">
             <video poster="" id="toby" autoplay controls muted loop playsinline width="50%">
               <source src="./static/image2mesh/10.mp4"
                       type="video/mp4">
